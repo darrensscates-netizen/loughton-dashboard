@@ -3,20 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="dashboard-version" content="13.1.0">
-<title>Loughton Operations Dashboard V13.1</title>
+<meta name="dashboard-version" content="13.2.1">
+<title>Loughton Operations Dashboard V13.2.1</title>
 <style>:root{--bg:#0f1419;--panel:#192129;--panel-top:#1d2730;--border:#2b3945;--accent:#35bdf5;--text:#f5f8fa;--muted:#aeb9c2;--good:#37d875;--warning:#ffb33d;--bad:#f05b61;--central:#e32017;--elizabeth:#6950a1;--district:#00782a;--jubilee:#a0a5a9}*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden}body{display:grid;grid-template-rows:76px minmax(0,1fr) 70px;gap:10px;padding:10px;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}.header{display:flex;align-items:center;justify-content:space-between;padding:0 8px 8px;border-bottom:1px solid var(--border)}#clock{font-size:52px;line-height:.9;font-weight:700;letter-spacing:-2px}#timezone{margin-top:8px;color:var(--accent);font-size:13px;letter-spacing:1.4px}.header-right{text-align:right}#date{font-size:23px;font-weight:700}.dashboard-name{margin-top:7px;color:var(--muted);font-size:12px;letter-spacing:1.6px}.grid{min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1.18fr .92fr;gap:10px}.card{min-width:0;min-height:0;overflow:hidden;padding:12px 14px;background:linear-gradient(145deg,var(--panel-top),var(--panel));border:1px solid var(--border);border-radius:11px;box-shadow:0 4px 14px rgba(0,0,0,.24)}.card-title-row{display:flex;justify-content:space-between;align-items:flex-start}.card h2{margin:0 0 9px;color:var(--accent);font-size:16px;letter-spacing:1.6px}.updated{color:var(--muted);font-size:12px}.weather-layout{height:calc(100% - 27px);display:grid;grid-template-columns:68px 152px 1fr;align-items:center;gap:10px}.weather-symbol{display:flex;align-items:center;justify-content:center;width:62px;height:62px;border:1px solid #3b4b58;border-radius:50%;color:var(--accent);background:#121920;font-size:12px;font-weight:700}.temp{font-size:52px;line-height:1;font-weight:700;white-space:nowrap}.weather-description{margin-top:7px;font-size:19px;font-weight:700}.weather-details{display:grid;gap:8px;color:var(--muted);font-size:16px}.weather-details strong{color:var(--text)}.status-row{display:flex;align-items:center;justify-content:space-between;min-height:30px;padding:3px 0;border-bottom:1px solid rgba(159,174,187,.16);font-size:17px}.line-row{position:relative;padding-left:13px}.line-row:before{content:"";position:absolute;left:0;top:5px;bottom:5px;width:4px;border-radius:3px;background:var(--line-colour)}.elizabeth{--line-colour:var(--elizabeth)}.central{--line-colour:var(--central)}.district{--line-colour:var(--district)}.jubilee{--line-colour:var(--jubilee)}.line-name{font-weight:600}.status{display:inline-flex;align-items:center;gap:7px;font-size:15px}.status i{width:9px;height:9px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor}.good{color:var(--good)}.warning{color:var(--warning)}.bad{color:var(--bad)}.pending{color:var(--muted)}.headline-list{margin:0;padding-left:21px}.headline-list li{margin:0 0 10px;padding-left:5px;font-size:17px;line-height:1.25}.headline-list li::marker{color:var(--accent)}.loading-row,.error-row{padding:16px 0;color:var(--muted);font-size:16px}.error-row{color:var(--bad)}.last-sync{margin-top:9px;color:var(--muted);font-size:14px}.brief{display:flex;align-items:center;gap:16px;padding:10px 16px;background:var(--panel);border:1px solid var(--border);border-radius:11px;color:var(--muted);font-size:15px}.brief-label{flex:0 0 auto;color:var(--accent);font-size:15px;font-weight:700;letter-spacing:1.3px}.brief-text{line-height:1.4}.version{position:fixed;right:12px;bottom:3px;color:#596670;font-size:8px}
+
+/* V13.2 layout */
+.weather{display:grid;grid-template-rows:auto 88px minmax(0,1fr)}
+.weather-current{display:flex;align-items:flex-start;justify-content:space-between;padding:0 8px 2px 2px}
+.weather-reading{min-width:0}.temp{font-size:50px}.weather-description{margin-top:2px;font-size:18px}
+.weather-meta{display:flex;gap:14px;margin-top:5px;color:var(--muted);font-size:13px;white-space:nowrap}.weather-meta strong{color:var(--text)}
+.weather-live-icon{display:flex;align-items:center;justify-content:center;width:74px;height:74px;margin:-4px 12px 0 8px;border-radius:50%;background:#111920;border:1px solid #3b4b58;color:var(--accent);font-size:44px;line-height:1}
+.forecast-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;align-items:stretch;padding-top:7px;border-top:1px solid rgba(159,174,187,.18)}
+.forecast-day{display:grid;grid-template-rows:auto 1fr auto;place-items:center;padding:4px 2px;border-radius:8px;background:rgba(9,14,18,.28)}
+.forecast-name{color:var(--accent);font-size:14px;font-weight:700}.forecast-icon{font-size:22px;line-height:1.15}.forecast-temp{font-size:13px;font-weight:700;white-space:nowrap}.forecast-temp .low{color:var(--muted)}.forecast-loading{grid-column:1/-1;color:var(--muted);font-size:14px}
+.transport .status-row{min-height:36px;font-size:20px}.transport .status{font-size:18px}.transport .status i{width:10px;height:10px}.brief{font-size:18px}.brief-label{font-size:17px}
 </style>
 </head>
 <body>
 <header class="header"><div><div id="clock">00:00</div><div id="timezone">EUROPE/LONDON</div></div><div class="header-right"><div id="date">Loading...</div><div class="dashboard-name">LOUGHTON OPERATIONS DASHBOARD</div></div></header>
 <main class="grid">
-<section class="card weather"><div class="card-title-row"><h2>WEATHER</h2><span id="weather-updated" class="updated">Connecting...</span></div><div class="weather-layout"><div id="weather-icon" class="weather-symbol">--</div><div><div id="temperature" class="temp">--&deg;C</div><div id="weather-description" class="weather-description">Loading weather...</div></div><div class="weather-details"><span>Feels like <strong id="feels-like">--&deg;C</strong></span><span>Humidity <strong id="humidity">--%</strong></span><span>High <strong id="temp-high">--&deg;C</strong> / Low <strong id="temp-low">--&deg;C</strong></span><span>Rain chance <strong id="rain-chance">--%</strong></span></div></div></section>
+<section class="card weather"><div class="card-title-row"><h2>WEATHER</h2><span id="weather-updated" class="updated">Connecting...</span></div><div class="weather-current"><div class="weather-reading"><div id="temperature" class="temp">--&deg;C</div><div id="weather-description" class="weather-description">Loading weather...</div><div class="weather-meta"><span>Feels <strong id="feels-like">--&deg;C</strong></span><span>Humidity <strong id="humidity">--%</strong></span><span>Rain <strong id="rain-chance">--%</strong></span></div></div><div id="weather-icon" class="weather-live-icon" aria-label="Current weather">--</div></div><div id="forecast-strip" class="forecast-strip"><div class="forecast-loading">Loading 4-day forecast...</div></div></section>
 <section class="card transport"><div class="card-title-row"><h2>TRANSPORT</h2><span id="tfl-updated" class="updated">Connecting...</span></div><div id="tfl-lines"><div class="loading-row">Loading TfL line status...</div></div></section>
 <section class="card news"><div class="card-title-row"><h2>BBC NEWS</h2><span id="news-updated" class="updated">Connecting...</span></div><ul id="headline-list" class="headline-list"><li>Loading latest headlines...</li></ul></section>
 <section class="card system"><h2>SYSTEM STATUS</h2><div class="status-row"><span>Internet</span><span id="internet-status" class="status pending"><i></i>Checking</span></div><div class="status-row"><span>Weather</span><span id="weather-status" class="status pending"><i></i>Checking</span></div><div class="status-row"><span>TfL</span><span id="tfl-status" class="status pending"><i></i>Checking</span></div><div class="status-row"><span>BBC News</span><span id="news-status" class="status pending"><i></i>Checking</span></div><div class="last-sync">Next feed refresh: <span id="refresh-countdown">--:--</span></div></section>
 </main>
-<footer class="brief"><span class="brief-label">LIVE BRIEF</span><span id="brief-text" class="brief-text">Connecting to live services...</span></footer><span class="version">V13.1</span>
+<footer class="brief"><span class="brief-label">LIVE BRIEF</span><span id="brief-text" class="brief-text">Connecting to live services...</span></footer><span class="version">V13.2.1</span>
 <script>(function () {
   "use strict";
 
@@ -92,12 +103,12 @@
 
   function weatherText(code) {
     var map = {
-      0:["Clear Sky","SUN"],1:["Mainly Clear","SUN"],2:["Partly Cloudy","PART"],3:["Overcast","CLOUD"],
-      45:["Fog","FOG"],48:["Rime Fog","FOG"],51:["Light Drizzle","RAIN"],53:["Drizzle","RAIN"],55:["Heavy Drizzle","RAIN"],
-      56:["Freezing Drizzle","ICE"],57:["Freezing Drizzle","ICE"],61:["Light Rain","RAIN"],63:["Rain","RAIN"],65:["Heavy Rain","RAIN"],
-      66:["Freezing Rain","ICE"],67:["Freezing Rain","ICE"],71:["Light Snow","SNOW"],73:["Snow","SNOW"],75:["Heavy Snow","SNOW"],
-      77:["Snow Grains","SNOW"],80:["Rain Showers","RAIN"],81:["Rain Showers","RAIN"],82:["Heavy Showers","RAIN"],
-      85:["Snow Showers","SNOW"],86:["Heavy Snow Showers","SNOW"],95:["Thunderstorm","STORM"],96:["Thunderstorm","STORM"],99:["Severe Thunderstorm","STORM"]
+      0:["Clear Sky","☀"],1:["Mainly Clear","☀"],2:["Partly Cloudy","⛅"],3:["Overcast","☁"],
+      45:["Fog","≋"],48:["Rime Fog","≋"],51:["Light Drizzle","☂"],53:["Drizzle","☂"],55:["Heavy Drizzle","☂"],
+      56:["Freezing Drizzle","❄"],57:["Freezing Drizzle","❄"],61:["Light Rain","☂"],63:["Rain","☂"],65:["Heavy Rain","☂"],
+      66:["Freezing Rain","❄"],67:["Freezing Rain","❄"],71:["Light Snow","❄"],73:["Snow","❄"],75:["Heavy Snow","❄"],
+      77:["Snow Grains","❄"],80:["Rain Showers","☂"],81:["Rain Showers","☂"],82:["Heavy Showers","☂"],
+      85:["Snow Showers","❄"],86:["Heavy Snow Showers","❄"],95:["Thunderstorm","⚡"],96:["Thunderstorm","⚡"],99:["Severe Thunderstorm","⚡"]
     };
     return map[code] || ["Unknown","--"];
   }
@@ -109,9 +120,16 @@
     byId("weather-description").textContent = data.description;
     byId("feels-like").textContent = degree(data.feels);
     byId("humidity").textContent = round(data.humidity) + "%";
-    byId("temp-high").textContent = degree(data.high);
-    byId("temp-low").textContent = degree(data.low);
-    byId("rain-chance").textContent = round(data.rain) + "%";
+    byId("rain-chance").textContent = (data.rain === null || typeof data.rain === "undefined") ? "--%" : round(data.rain) + "%";
+    if (data.forecast && data.forecast.length) {
+      byId("forecast-strip").innerHTML = data.forecast.slice(0, 4).map(function (day) {
+        return '<div class="forecast-day"><div class="forecast-name">' + escapeHtml(day.day) + '</div>' +
+          '<div class="forecast-icon" aria-hidden="true">' + escapeHtml(day.icon) + '</div>' +
+          '<div class="forecast-temp">' + round(day.high) + '&deg; <span class="low">' + round(day.low) + '&deg;</span></div></div>';
+      }).join("");
+    } else {
+      byId("forecast-strip").innerHTML = '<div class="forecast-loading">Refreshing 4-day forecast...</div>';
+    }
     cached ? staleStamp("weather-updated", cached) : stamp("weather-updated");
     setStatus("weather-status", cached ? "warning" : "good", cached ? "Cached" : "Live");
     updateBrief();
@@ -122,13 +140,22 @@
     schedules.weather.running = true;
     var url = "https://api.open-meteo.com/v1/forecast?latitude=" + CONFIG.latitude + "&longitude=" + CONFIG.longitude +
       "&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code" +
-      "&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Europe%2FLondon&forecast_days=1";
+      "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Europe%2FLondon&forecast_days=5";
     return fetchJsonResilient(url).then(function (raw) {
       if (!raw.current || !raw.daily) throw new Error("Invalid weather response");
       var desc = weatherText(raw.current.weather_code);
+      var forecast = [];
+      for (var i = 1; i < Math.min(5, raw.daily.time.length); i += 1) {
+        var forecastDesc = weatherText(raw.daily.weather_code[i]);
+        var forecastDate = new Date(raw.daily.time[i] + "T12:00:00");
+        forecast.push({
+          day: forecastDate.toLocaleDateString("en-GB", { weekday: "short", timeZone: "Europe/London" }),
+          icon: forecastDesc[1], high: raw.daily.temperature_2m_max[i], low: raw.daily.temperature_2m_min[i]
+        });
+      }
       var data = { icon:desc[1], description:desc[0], temperature:raw.current.temperature_2m,
         feels:raw.current.apparent_temperature, humidity:raw.current.relative_humidity_2m,
-        high:raw.daily.temperature_2m_max[0], low:raw.daily.temperature_2m_min[0], rain:raw.daily.precipitation_probability_max[0] };
+        high:raw.daily.temperature_2m_max[0], low:raw.daily.temperature_2m_min[0], rain:raw.daily.precipitation_probability_max[0], forecast:forecast };
       safeStore("weather", data); renderWeather(data, 0);
     }).catch(function (error) {
       var cached = safeLoad("weather");
