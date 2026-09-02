@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="dashboard-version" content="13.2.2">
-<title>Loughton Operations Dashboard V13.2.2</title>
+<meta name="dashboard-version" content="13.3.0">
+<title>Loughton Operations Dashboard V13.3</title>
 <style>:root{--bg:#0f1419;--panel:#192129;--panel-top:#1d2730;--border:#2b3945;--accent:#35bdf5;--text:#f5f8fa;--muted:#aeb9c2;--good:#37d875;--warning:#ffb33d;--bad:#f05b61;--central:#e32017;--elizabeth:#6950a1;--district:#00782a;--jubilee:#a0a5a9}*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden}body{display:grid;grid-template-rows:76px minmax(0,1fr) 70px;gap:10px;padding:10px;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}.header{display:flex;align-items:center;justify-content:space-between;padding:0 8px 8px;border-bottom:1px solid var(--border)}#clock{font-size:52px;line-height:.9;font-weight:700;letter-spacing:-2px}#timezone{margin-top:8px;color:var(--accent);font-size:13px;letter-spacing:1.4px}.header-right{text-align:right}#date{font-size:23px;font-weight:700}.dashboard-name{margin-top:7px;color:var(--muted);font-size:12px;letter-spacing:1.6px}.grid{min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1.18fr .92fr;gap:10px}.card{min-width:0;min-height:0;overflow:hidden;padding:12px 14px;background:linear-gradient(145deg,var(--panel-top),var(--panel));border:1px solid var(--border);border-radius:11px;box-shadow:0 4px 14px rgba(0,0,0,.24)}.card-title-row{display:flex;justify-content:space-between;align-items:flex-start}.card h2{margin:0 0 9px;color:var(--accent);font-size:16px;letter-spacing:1.6px}.updated{color:var(--muted);font-size:12px}.weather-layout{height:calc(100% - 27px);display:grid;grid-template-columns:68px 152px 1fr;align-items:center;gap:10px}.weather-symbol{display:flex;align-items:center;justify-content:center;width:62px;height:62px;border:1px solid #3b4b58;border-radius:50%;color:var(--accent);background:#121920;font-size:12px;font-weight:700}.temp{font-size:52px;line-height:1;font-weight:700;white-space:nowrap}.weather-description{margin-top:7px;font-size:19px;font-weight:700}.weather-details{display:grid;gap:8px;color:var(--muted);font-size:16px}.weather-details strong{color:var(--text)}.status-row{display:flex;align-items:center;justify-content:space-between;min-height:30px;padding:3px 0;border-bottom:1px solid rgba(159,174,187,.16);font-size:17px}.line-row{position:relative;padding-left:13px}.line-row:before{content:"";position:absolute;left:0;top:5px;bottom:5px;width:4px;border-radius:3px;background:var(--line-colour)}.elizabeth{--line-colour:var(--elizabeth)}.central{--line-colour:var(--central)}.district{--line-colour:var(--district)}.jubilee{--line-colour:var(--jubilee)}.line-name{font-weight:600}.status{display:inline-flex;align-items:center;gap:7px;font-size:15px}.status i{width:9px;height:9px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor}.good{color:var(--good)}.warning{color:var(--warning)}.bad{color:var(--bad)}.pending{color:var(--muted)}.headline-list{margin:0;padding-left:21px}.headline-list li{margin:0 0 10px;padding-left:5px;font-size:17px;line-height:1.25}.headline-list li::marker{color:var(--accent)}.loading-row,.error-row{padding:16px 0;color:var(--muted);font-size:16px}.error-row{color:var(--bad)}.last-sync{margin-top:9px;color:var(--muted);font-size:14px}.brief{display:flex;align-items:center;gap:16px;padding:10px 16px;background:var(--panel);border:1px solid var(--border);border-radius:11px;color:var(--muted);font-size:15px}.brief-label{flex:0 0 auto;color:var(--accent);font-size:15px;font-weight:700;letter-spacing:1.3px}.brief-text{line-height:1.4}.version{position:fixed;right:12px;bottom:3px;color:#596670;font-size:8px}
 
 /* V13.2 layout */
@@ -17,7 +17,10 @@
 .forecast-day{display:grid;grid-template-rows:auto 1fr auto;place-items:center;padding:4px 2px;border-radius:8px;background:rgba(9,14,18,.28)}
 .forecast-name{color:var(--accent);font-size:14px;font-weight:700}.forecast-icon{font-size:22px;line-height:1.15}.forecast-temp{font-size:13px;font-weight:700;white-space:nowrap}.forecast-temp .low{color:var(--muted)}.forecast-loading{grid-column:1/-1;color:var(--muted);font-size:14px}
 .transport .status-row{min-height:36px;font-size:20px}.transport .status{font-size:18px}.transport .status i{width:10px;height:10px}.brief{font-size:18px}.brief-label{font-size:17px}
-.header-refresh{position:absolute;left:50%;transform:translateX(-50%);text-align:center;white-space:nowrap}.header-refresh-label{color:var(--muted);font-size:12px;letter-spacing:1.5px}.header-refresh-timer{margin-top:4px;color:var(--accent);font-size:22px;font-weight:700}.header{position:relative}</style>
+.header-refresh{position:absolute;left:50%;transform:translateX(-50%);text-align:center;white-space:nowrap}.header-refresh-label{color:var(--muted);font-size:12px;letter-spacing:1.5px}.header-refresh-timer{margin-top:4px;color:var(--accent);font-size:22px;font-weight:700}.header{position:relative}
+/* V13.3 alternating System Status and Loughton departures */
+.system{position:relative}.system-view,.departures-view{position:absolute;inset:12px 14px;transition:opacity .45s ease,visibility .45s ease}.departures-view{opacity:0;visibility:hidden;pointer-events:none}.system.show-departures .system-view{opacity:0;visibility:hidden;pointer-events:none}.system.show-departures .departures-view{opacity:1;visibility:visible;pointer-events:auto}.departure-row{display:flex;align-items:center;justify-content:space-between;min-height:30px;padding:3px 0;border-bottom:1px solid rgba(159,174,187,.16)}.departure-destination{font-size:17px}.departure-time{color:var(--accent);font-size:17px;font-weight:700}.departure-message{padding:14px 0;color:var(--muted);font-size:15px}.departure-footer{margin-top:8px;color:var(--muted);font-size:11px}
+</style>
 </head>
 <body>
 <header class="header"><div><div id="clock">00:00</div><div id="timezone">EUROPE/LONDON</div></div><div class="header-refresh"><div class="header-refresh-label">NEXT FEED REFRESH</div><div id="refresh-countdown" class="header-refresh-timer">--:--</div></div><div class="header-right"><div id="date">Loading...</div><div class="dashboard-name">LOUGHTON OPERATIONS DASHBOARD</div></div></header>
@@ -25,9 +28,9 @@
 <section class="card weather"><div class="card-title-row"><h2>WEATHER</h2><span id="weather-updated" class="updated">Connecting...</span></div><div class="weather-current"><div class="weather-reading"><div id="temperature" class="temp">--&deg;C</div><div id="weather-description" class="weather-description">Loading weather...</div><div class="weather-meta"><span>Feels <strong id="feels-like">--&deg;C</strong></span><span>Humidity <strong id="humidity">--%</strong></span><span>Rain <strong id="rain-chance">--%</strong></span></div></div><div id="weather-icon" class="weather-live-icon" aria-label="Current weather">--</div></div><div id="forecast-strip" class="forecast-strip"><div class="forecast-loading">Loading 4-day forecast...</div></div></section>
 <section class="card transport"><div class="card-title-row"><h2>TRANSPORT</h2><span id="tfl-updated" class="updated">Connecting...</span></div><div id="tfl-lines"><div class="loading-row">Loading TfL line status...</div></div></section>
 <section class="card news"><div class="card-title-row"><h2>BBC NEWS</h2><span id="news-updated" class="updated">Connecting...</span></div><ul id="headline-list" class="headline-list"><li>Loading latest headlines...</li></ul></section>
-<section class="card system"><h2>SYSTEM STATUS</h2><div class="status-row"><span>Internet</span><span id="internet-status" class="status pending"><i></i>Checking</span></div><div class="status-row"><span>Weather</span><span id="weather-status" class="status pending"><i></i>Checking</span></div><div class="status-row"><span>TfL</span><span id="tfl-status" class="status pending"><i></i>Checking</span></div><div class="status-row"><span>BBC News</span><span id="news-status" class="status pending"><i></i>Checking</span></div></section>
+<section id="system-card" class="card system"><div class="system-view"><h2>SYSTEM STATUS</h2><div class="status-row"><span>Internet</span><span id="internet-status" class="status pending"><i></i>Checking</span></div><div class="status-row"><span>Weather</span><span id="weather-status" class="status pending"><i></i>Checking</span></div><div class="status-row"><span>TfL</span><span id="tfl-status" class="status pending"><i></i>Checking</span></div><div class="status-row"><span>BBC News</span><span id="news-status" class="status pending"><i></i>Checking</span></div></div><div class="departures-view"><div class="card-title-row"><h2>LOUGHTON WESTBOUND</h2><span id="departures-updated" class="updated">Connecting...</span></div><div id="departures-list"><div class="departure-message">Loading departures...</div></div><div id="departures-footer" class="departure-footer"></div></div></section>
 </main>
-<footer class="brief"><span class="brief-label">LIVE BRIEF</span><span id="brief-text" class="brief-text">Connecting to live services...</span></footer><span class="version">V13.2.2</span>
+<footer class="brief"><span class="brief-label">LIVE BRIEF</span><span id="brief-text" class="brief-text">Connecting to live services...</span></footer><span class="version">V13.3</span>
 <script>(function () {
   "use strict";
 
@@ -37,6 +40,7 @@
     weatherMinutes: 15,
     tflMinutes: 2,
     newsMinutes: 10,
+    departuresSeconds: 30,
     requestTimeoutMs: 15000,
     maxAttempts: 3,
     tflLines: ["central", "elizabeth", "district", "jubilee"],
@@ -46,9 +50,10 @@
   var schedules = {
     weather: { next: 0, interval: CONFIG.weatherMinutes * 60000, running: false },
     tfl: { next: 0, interval: CONFIG.tflMinutes * 60000, running: false },
-    news: { next: 0, interval: CONFIG.newsMinutes * 60000, running: false }
+    news: { next: 0, interval: CONFIG.newsMinutes * 60000, running: false },
+    departures: { next: 0, interval: CONFIG.departuresSeconds * 1000, running: false }
   };
-  var state = { weather: null, tfl: null, news: null };
+  var state = { weather: null, tfl: null, news: null, departures: null };
 
   function byId(id) { return document.getElementById(id); }
   function round(value) { return Math.round(Number(value)); }
@@ -212,6 +217,40 @@
     }).finally(function(){schedules.news.running=false;schedules.news.next=Date.now()+schedules.news.interval;});
   }
 
+  function renderDepartures(items, cached) {
+    state.departures = items;
+    if (items.length) {
+      byId("departures-list").innerHTML = items.slice(0, 4).map(function (item) {
+        var minutes = Math.max(0, Math.round(item.seconds / 60));
+        var display = minutes < 1 ? "Due" : minutes + " min";
+        return '<div class="departure-row"><span class="departure-destination">' + escapeHtml(item.destination) + '</span><span class="departure-time">' + display + '</span></div>';
+      }).join("");
+      byId("departures-footer").textContent = cached ? "Showing cached prediction data" : "Live TfL predictions";
+    } else {
+      byId("departures-list").innerHTML = '<div class="departure-message">No westbound departures currently shown</div>';
+      byId("departures-footer").textContent = "";
+    }
+    cached ? staleStamp("departures-updated", cached) : stamp("departures-updated");
+  }
+  function loadDepartures() {
+    if (schedules.departures.running) return Promise.resolve();
+    schedules.departures.running = true;
+    return fetchJsonResilient("https://api.tfl.gov.uk/StopPoint/940GZZLULGN/Arrivals").then(function (raw) {
+      if (!Array.isArray(raw)) throw new Error("Invalid departures response");
+      var data = raw.filter(function (train) { return train.direction === "inbound"; })
+        .sort(function (a, b) { return a.timeToStation - b.timeToStation; })
+        .slice(0, 4)
+        .map(function (train) {
+          return { destination: String(train.destinationName || "Destination unknown").replace(" Underground Station", ""), seconds: Number(train.timeToStation || 0) };
+        });
+      safeStore("departures", data); renderDepartures(data, 0);
+    }).catch(function (error) {
+      var cached = safeLoad("departures");
+      if (cached) renderDepartures(cached.value, cached.saved);
+      else { stamp("departures-updated", "Unavailable"); byId("departures-list").innerHTML = '<div class="departure-message bad">TfL predictions unavailable</div>'; }
+      console.error("Departures", error);
+    }).finally(function () { schedules.departures.running = false; schedules.departures.next = Date.now() + schedules.departures.interval; });
+  }
   function updateBrief(){
     var parts=[];
     if(state.weather)parts.push("Weather: "+round(state.weather.temperature)+"\u00B0C, "+state.weather.description.toLowerCase()+", with a "+round(state.weather.rain)+"% chance of rain.");
@@ -222,21 +261,26 @@
   function updateClock(){var now=new Date();byId("clock").textContent=now.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"Europe/London"});byId("date").textContent=now.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",timeZone:"Europe/London"});}
   function updateConnectivity(){setStatus("internet-status",navigator.onLine?"good":"bad",navigator.onLine?"Online":"Offline");}
   function updateCountdown(){
-    var now=Date.now(), candidates=[schedules.weather,schedules.tfl,schedules.news].filter(function(x){return x.next>now;});
+    var now=Date.now(), candidates=[schedules.weather,schedules.tfl,schedules.news,schedules.departures].filter(function(x){return x.next>now;});
     var remaining=candidates.length?Math.min.apply(null,candidates.map(function(x){return x.next;}))-now:0;
     var m=Math.floor(remaining/60000),s=Math.floor((remaining%60000)/1000);byId("refresh-countdown").textContent=(m<10?"0":"")+m+":"+(s<10?"0":"")+s;
   }
-  function scheduler(){var now=Date.now();Object.keys(schedules).forEach(function(key){if(now>=schedules[key].next&&!schedules[key].running){if(key==="weather")loadWeather();if(key==="tfl")loadTfl();if(key==="news")loadNews();}});}
-  function restoreCache(){["weather","tfl","news"].forEach(function(key){var cached=safeLoad(key);if(!cached)return;if(key==="weather")renderWeather(cached.value,cached.saved);if(key==="tfl")renderTfl(cached.value,cached.saved);if(key==="news")renderNews(cached.value,cached.saved);});}
-  function refreshNow(){schedules.weather.next=0;schedules.tfl.next=0;schedules.news.next=0;scheduler();}
+  function scheduler(){var now=Date.now();Object.keys(schedules).forEach(function(key){if(now>=schedules[key].next&&!schedules[key].running){if(key==="weather")loadWeather();if(key==="tfl")loadTfl();if(key==="news")loadNews();if(key==="departures")loadDepartures();}});}
+  function restoreCache(){["weather","tfl","news","departures"].forEach(function(key){var cached=safeLoad(key);if(!cached)return;if(key==="weather")renderWeather(cached.value,cached.saved);if(key==="tfl")renderTfl(cached.value,cached.saved);if(key==="news")renderNews(cached.value,cached.saved);if(key==="departures")renderDepartures(cached.value,cached.saved);});}
+  function refreshNow(){schedules.weather.next=0;schedules.tfl.next=0;schedules.news.next=0;schedules.departures.next=0;scheduler();}
 
   window.addEventListener("online",function(){updateConnectivity();refreshNow();});
   window.addEventListener("offline",function(){updateConnectivity();updateBrief();});
   document.addEventListener("visibilitychange",function(){if(!document.hidden){updateClock();scheduler();}});
   window.addEventListener("error",function(e){console.error("Dashboard error",e.error||e.message);});
 
+  var showingDepartures = false;
+  function switchSystemPane() {
+    showingDepartures = !showingDepartures;
+    byId("system-card").classList.toggle("show-departures", showingDepartures);
+  }
   updateClock();updateConnectivity();restoreCache();refreshNow();updateCountdown();
-  setInterval(updateClock,1000);setInterval(updateCountdown,1000);setInterval(scheduler,5000);
+  setInterval(updateClock,1000);setInterval(updateCountdown,1000);setInterval(scheduler,5000);setInterval(switchSystemPane,10000);
 }());
 </script>
 </body></html>
