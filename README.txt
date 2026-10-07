@@ -307,6 +307,3 @@ from failed feeds appear in red in the Console.
   - Map: Esri, HERE, Garmin, OpenStreetMap contributors
   - Aircraft data: adsb.lol, adsb.fi, OpenSky Network
   - Flight route data: adsbdb.com
-
-Add your own LICENSE file to the repository to say how others may reuse the
-code.
