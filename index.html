@@ -3,284 +3,104 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="dashboard-version" content="13.3.0">
-<title>Loughton Operations Dashboard V13.3</title>
-<style>:root{--bg:#0f1419;--panel:#192129;--panel-top:#1d2730;--border:#2b3945;--accent:#35bdf5;--text:#f5f8fa;--muted:#aeb9c2;--good:#37d875;--warning:#ffb33d;--bad:#f05b61;--central:#e32017;--elizabeth:#6950a1;--district:#00782a;--jubilee:#a0a5a9}*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden}body{display:grid;grid-template-rows:76px minmax(0,1fr) 70px;gap:10px;padding:10px;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}.header{display:flex;align-items:center;justify-content:space-between;padding:0 8px 8px;border-bottom:1px solid var(--border)}#clock{font-size:52px;line-height:.9;font-weight:700;letter-spacing:-2px}#timezone{margin-top:8px;color:var(--accent);font-size:13px;letter-spacing:1.4px}.header-right{text-align:right}#date{font-size:23px;font-weight:700}.dashboard-name{margin-top:7px;color:var(--muted);font-size:12px;letter-spacing:1.6px}.grid{min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1.18fr .92fr;gap:10px}.card{min-width:0;min-height:0;overflow:hidden;padding:12px 14px;background:linear-gradient(145deg,var(--panel-top),var(--panel));border:1px solid var(--border);border-radius:11px;box-shadow:0 4px 14px rgba(0,0,0,.24)}.card-title-row{display:flex;justify-content:space-between;align-items:flex-start}.card h2{margin:0 0 9px;color:var(--accent);font-size:16px;letter-spacing:1.6px}.updated{color:var(--muted);font-size:12px}.weather-layout{height:calc(100% - 27px);display:grid;grid-template-columns:68px 152px 1fr;align-items:center;gap:10px}.weather-symbol{display:flex;align-items:center;justify-content:center;width:62px;height:62px;border:1px solid #3b4b58;border-radius:50%;color:var(--accent);background:#121920;font-size:12px;font-weight:700}.temp{font-size:52px;line-height:1;font-weight:700;white-space:nowrap}.weather-description{margin-top:7px;font-size:19px;font-weight:700}.weather-details{display:grid;gap:8px;color:var(--muted);font-size:16px}.weather-details strong{color:var(--text)}.status-row{display:flex;align-items:center;justify-content:space-between;min-height:30px;padding:3px 0;border-bottom:1px solid rgba(159,174,187,.16);font-size:17px}.line-row{position:relative;padding-left:13px}.line-row:before{content:"";position:absolute;left:0;top:5px;bottom:5px;width:4px;border-radius:3px;background:var(--line-colour)}.elizabeth{--line-colour:var(--elizabeth)}.central{--line-colour:var(--central)}.district{--line-colour:var(--district)}.jubilee{--line-colour:var(--jubilee)}.line-name{font-weight:600}.status{display:inline-flex;align-items:center;gap:7px;font-size:15px}.status i{width:9px;height:9px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor}.good{color:var(--good)}.warning{color:var(--warning)}.bad{color:var(--bad)}.pending{color:var(--muted)}.headline-list{margin:0;padding-left:21px}.headline-list li{margin:0 0 10px;padding-left:5px;font-size:17px;line-height:1.25}.headline-list li::marker{color:var(--accent)}.loading-row,.error-row{padding:16px 0;color:var(--muted);font-size:16px}.error-row{color:var(--bad)}.last-sync{margin-top:9px;color:var(--muted);font-size:14px}.brief{display:flex;align-items:center;gap:16px;padding:10px 16px;background:var(--panel);border:1px solid var(--border);border-radius:11px;color:var(--muted);font-size:15px}.brief-label{flex:0 0 auto;color:var(--accent);font-size:15px;font-weight:700;letter-spacing:1.3px}.brief-text{line-height:1.4}.version{position:fixed;right:12px;bottom:3px;color:#596670;font-size:8px}
-
-/* V13.2 layout */
-.weather{display:grid;grid-template-rows:auto 88px minmax(0,1fr)}
-.weather-current{display:flex;align-items:flex-start;justify-content:space-between;padding:0 8px 2px 2px}
-.weather-reading{min-width:0}.temp{font-size:50px}.weather-description{margin-top:2px;font-size:18px}
-.weather-meta{display:flex;gap:14px;margin-top:5px;color:var(--muted);font-size:13px;white-space:nowrap}.weather-meta strong{color:var(--text)}
-.weather-live-icon{display:flex;align-items:center;justify-content:center;width:74px;height:74px;margin:-4px 12px 0 8px;border-radius:50%;background:#111920;border:1px solid #3b4b58;color:var(--accent);font-size:44px;line-height:1}
-.forecast-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;align-items:stretch;padding-top:7px;border-top:1px solid rgba(159,174,187,.18)}
-.forecast-day{display:grid;grid-template-rows:auto 1fr auto;place-items:center;padding:4px 2px;border-radius:8px;background:rgba(9,14,18,.28)}
-.forecast-name{color:var(--accent);font-size:14px;font-weight:700}.forecast-icon{font-size:22px;line-height:1.15}.forecast-temp{font-size:13px;font-weight:700;white-space:nowrap}.forecast-temp .low{color:var(--muted)}.forecast-loading{grid-column:1/-1;color:var(--muted);font-size:14px}
-.transport .status-row{min-height:36px;font-size:20px}.transport .status{font-size:18px}.transport .status i{width:10px;height:10px}.brief{font-size:18px}.brief-label{font-size:17px}
-.header-refresh{position:absolute;left:50%;transform:translateX(-50%);text-align:center;white-space:nowrap}.header-refresh-label{color:var(--muted);font-size:12px;letter-spacing:1.5px}.header-refresh-timer{margin-top:4px;color:var(--accent);font-size:22px;font-weight:700}.header{position:relative}
-/* V13.3 alternating System Status and Loughton departures */
-.system{position:relative}.system-view,.departures-view{position:absolute;inset:12px 14px;transition:opacity .45s ease,visibility .45s ease}.departures-view{opacity:0;visibility:hidden;pointer-events:none}.system.show-departures .system-view{opacity:0;visibility:hidden;pointer-events:none}.system.show-departures .departures-view{opacity:1;visibility:visible;pointer-events:auto}.departure-row{display:flex;align-items:center;justify-content:space-between;min-height:30px;padding:3px 0;border-bottom:1px solid rgba(159,174,187,.16)}.departure-destination{font-size:17px}.departure-time{color:var(--accent);font-size:17px;font-weight:700}.departure-message{padding:14px 0;color:var(--muted);font-size:15px}.departure-footer{margin-top:8px;color:var(--muted);font-size:11px}
+<meta name="dashboard-version" content="12.0.0">
+<title>Loughton Dashboard V12</title>
+<style>
+:root{--bg:#0f1419;--panel:#192129;--top:#1d2730;--border:#2b3945;--accent:#35bdf5;--text:#f5f8fa;--muted:#aeb9c2;--good:#37d875;--warn:#ffb33d;--bad:#f05b61;--central:#e32017;--elizabeth:#6950a1;--district:#00782a;--jubilee:#a0a5a9}*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden}body{display:grid;grid-template-rows:70px minmax(0,1fr) 54px;gap:9px;padding:9px;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}.header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);padding:0 8px 7px;position:relative}#clock{font-size:48px;line-height:.9;font-weight:700;letter-spacing:-2px}#timezone{margin-top:7px;color:var(--accent);font-size:12px;letter-spacing:1.3px}.header-centre{position:absolute;left:50%;transform:translateX(-50%);text-align:center}.page-label{color:var(--muted);font-size:11px;letter-spacing:1.4px}.flip-timer{margin-top:3px;color:var(--accent);font-size:21px;font-weight:700}.header-right{text-align:right}#date{font-size:21px;font-weight:700}.dashboard-name{margin-top:6px;color:var(--muted);font-size:11px;letter-spacing:1.4px}.stage{position:relative;min-height:0}.page{position:absolute;inset:0;display:grid;gap:9px;opacity:0;visibility:hidden;transition:opacity .55s ease}.page.active{opacity:1;visibility:visible}.page-one{grid-template-columns:1.55fr .85fr;grid-template-rows:1fr 1fr;grid-auto-flow:column}.news .summary{display:none}.radar{display:flex;flex-direction:column}#radar-box{flex:1;min-height:0;position:relative;border-radius:7px;overflow:hidden;background:#0b1015}#radar-canvas{position:absolute;left:0;top:0;width:100%;height:100%}.page-two{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}.card{min-width:0;min-height:0;overflow:hidden;padding:11px 13px;background:linear-gradient(145deg,var(--top),var(--panel));border:1px solid var(--border);border-radius:11px;box-shadow:0 4px 14px rgba(0,0,0,.24)}.title{display:flex;align-items:flex-start;justify-content:space-between}.card h2{margin:0 0 8px;color:var(--accent);font-size:15px;letter-spacing:1.5px}.updated{color:var(--muted);font-size:11px}.headline-list{margin:0;padding-left:22px;columns:2;column-gap:32px}.headline-list li{break-inside:avoid;margin:0 0 13px;padding-left:3px;font-size:17px;line-height:1.28}.headline-list li::marker{color:var(--accent)}.headline-list .hl{font-weight:700}.headline-list .summary{display:none;-webkit-box-flex:0;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:3px;color:var(--muted);font-size:13px;font-weight:400;line-height:1.3}.weather-current{display:flex;justify-content:space-between;align-items:center}.temp{font-size:46px;line-height:1;font-weight:700}.weather-description{margin-top:2px;font-size:17px;font-weight:700}.weather-meta{margin-top:7px;display:flex;gap:11px;color:var(--muted);font-size:12px}.weather-meta strong{color:var(--text)}.weather-icon{display:flex;align-items:center;justify-content:center;width:68px;height:68px;border:1px solid #3b4b58;border-radius:50%;background:#111920;color:var(--accent);font-size:39px}.forecast{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:8px;padding-top:7px;border-top:1px solid rgba(159,174,187,.18)}.forecast-day{text-align:center;padding:4px 1px;background:rgba(9,14,18,.28);border-radius:7px;font-size:12px}.forecast-day b{display:block;color:var(--accent);margin-bottom:3px}.status-row,.data-row{display:flex;align-items:center;justify-content:space-between;min-height:29px;padding:3px 0;border-bottom:1px solid rgba(159,174,187,.16);font-size:16px}.line-row{position:relative;padding-left:12px}.line-row:before{content:"";position:absolute;left:0;top:5px;bottom:5px;width:4px;border-radius:3px;background:var(--line)}.central{--line:var(--central)}.elizabeth{--line:var(--elizabeth)}.district{--line:var(--district)}.jubilee{--line:var(--jubilee)}.status{display:inline-flex;align-items:center;gap:6px;font-size:14px}.status i{width:8px;height:8px;border-radius:50%;background:currentColor;box-shadow:0 0 7px currentColor}.good{color:var(--good)}.warning{color:var(--warn)}.bad{color:var(--bad)}.pending{color:var(--muted)}.data-main{font-weight:600;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.data-sub{color:var(--muted);font-size:12px}.data-time{color:var(--accent);font-size:17px;font-weight:700;white-space:nowrap;margin-left:10px}.message{padding:15px 0;color:var(--muted);font-size:14px}#aircraft-list .data-row>div{flex:1;min-width:0}.aircraft-call{display:flex;align-items:baseline;gap:10px;min-width:0;font-size:17px;font-weight:700}.ac-route{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:var(--muted);font-size:13px;font-weight:400}.aircraft-grid{display:grid;grid-template-columns:repeat(4,auto);justify-content:space-between;gap:4px 14px;margin-top:3px;color:var(--muted);font-size:13px}.aircraft-grid strong{color:var(--text)}.brief{display:flex;align-items:center;gap:14px;padding:8px 14px;background:var(--panel);border:1px solid var(--border);border-radius:10px;color:var(--muted);font-size:14px}.brief-label{color:var(--accent);font-weight:700;letter-spacing:1.2px;white-space:nowrap}.version{position:fixed;right:11px;bottom:2px;color:#596670;font-size:8px}@media(max-width:700px){.headline-list{columns:1}.headline-list li{font-size:15px;margin-bottom:9px}.data-row,.status-row{font-size:14px}}
 </style>
 </head>
 <body>
-<header class="header"><div><div id="clock">00:00</div><div id="timezone">EUROPE/LONDON</div></div><div class="header-refresh"><div class="header-refresh-label">NEXT FEED REFRESH</div><div id="refresh-countdown" class="header-refresh-timer">--:--</div></div><div class="header-right"><div id="date">Loading...</div><div class="dashboard-name">LOUGHTON OPERATIONS DASHBOARD</div></div></header>
-<main class="grid">
-<section class="card weather"><div class="card-title-row"><h2>WEATHER</h2><span id="weather-updated" class="updated">Connecting...</span></div><div class="weather-current"><div class="weather-reading"><div id="temperature" class="temp">--&deg;C</div><div id="weather-description" class="weather-description">Loading weather...</div><div class="weather-meta"><span>Feels <strong id="feels-like">--&deg;C</strong></span><span>Humidity <strong id="humidity">--%</strong></span><span>Rain <strong id="rain-chance">--%</strong></span></div></div><div id="weather-icon" class="weather-live-icon" aria-label="Current weather">--</div></div><div id="forecast-strip" class="forecast-strip"><div class="forecast-loading">Loading 4-day forecast...</div></div></section>
-<section class="card transport"><div class="card-title-row"><h2>TRANSPORT</h2><span id="tfl-updated" class="updated">Connecting...</span></div><div id="tfl-lines"><div class="loading-row">Loading TfL line status...</div></div></section>
-<section class="card news"><div class="card-title-row"><h2>BBC NEWS</h2><span id="news-updated" class="updated">Connecting...</span></div><ul id="headline-list" class="headline-list"><li>Loading latest headlines...</li></ul></section>
-<section id="system-card" class="card system"><div class="system-view"><h2>SYSTEM STATUS</h2><div class="status-row"><span>Internet</span><span id="internet-status" class="status pending"><i></i>Checking</span></div><div class="status-row"><span>Weather</span><span id="weather-status" class="status pending"><i></i>Checking</span></div><div class="status-row"><span>TfL</span><span id="tfl-status" class="status pending"><i></i>Checking</span></div><div class="status-row"><span>BBC News</span><span id="news-status" class="status pending"><i></i>Checking</span></div></div><div class="departures-view"><div class="card-title-row"><h2>LOUGHTON WESTBOUND</h2><span id="departures-updated" class="updated">Connecting...</span></div><div id="departures-list"><div class="departure-message">Loading departures...</div></div><div id="departures-footer" class="departure-footer"></div></div></section>
+<header class="header"><div><div id="clock">00:00</div><div id="timezone">EUROPE/LONDON</div></div><div class="header-centre"><div id="page-label" class="page-label">PAGE 1 · NEWS & RADAR</div><div id="flip-timer" class="flip-timer">10</div></div><div class="header-right"><div id="date">Loading...</div><div class="dashboard-name">LOUGHTON OPERATIONS DASHBOARD</div></div></header>
+<main class="stage">
+<section id="page1" class="page page-one active">
+ <article class="card news"><div class="title"><h2>BBC NEWS</h2><span id="news-updated" class="updated">Connecting...</span></div><ul id="headline-list" class="headline-list"><li>Loading latest headlines...</li></ul></article>
+ <article class="card radar"><div class="title"><h2>RAIN RADAR · 50 MILES</h2><span id="radar-updated" class="updated">Connecting...</span></div><div id="radar-box"><canvas id="radar-canvas"></canvas></div></article>
+ <article class="card"><div class="title"><h2>SYSTEM STATUS</h2><span class="updated">Live checks</span></div><div class="status-row"><span>Internet</span><span id="internet-status" class="status pending"><i></i>Checking</span></div><div class="status-row"><span>Ping to Google</span><span id="ping-status" class="status pending"><i></i>Checking</span></div><div class="status-row"><span>Download speed</span><span id="speed-status" class="status pending"><i></i>Waiting</span></div><div class="status-row"><span>Weather</span><span id="weather-status" class="status pending"><i></i>Checking</span></div><div class="status-row"><span>TfL</span><span id="tfl-status" class="status pending"><i></i>Checking</span></div><div class="status-row"><span>BBC News</span><span id="news-status" class="status pending"><i></i>Checking</span></div><div class="status-row"><span>Aircraft</span><span id="air-status" class="status pending"><i></i>Checking</span></div></article>
+ <article class="card"><div class="title"><h2>WEATHER</h2><span id="weather-updated" class="updated">Connecting...</span></div><div class="weather-current"><div><div id="temperature" class="temp">--°C</div><div id="weather-description" class="weather-description">Loading...</div><div class="weather-meta"><span>Feels <strong id="feels-like">--°C</strong></span><span>Humidity <strong id="humidity">--%</strong></span><span>Rain <strong id="rain-chance">--%</strong></span></div></div><div id="weather-icon" class="weather-icon">--</div></div><div id="forecast" class="forecast"></div></article>
+</section>
+<section id="page2" class="page page-two">
+ <article class="card"><div class="title"><h2>TUBE STATUS</h2><span id="tfl-updated" class="updated">Connecting...</span></div><div id="tfl-lines" class="message">Loading line status...</div></article>
+ <article class="card"><div class="title"><h2>LOUGHTON WESTBOUND</h2><span id="departures-updated" class="updated">Connecting...</span></div><div id="departures-list" class="message">Loading departures...</div></article>
+ <article class="card"><div class="title"><h2>THE CROWN · NEXT BUSES</h2><span id="buses-updated" class="updated">Connecting...</span></div><div id="buses-list" class="message">Finding The Crown bus stops...</div></article>
+ <article class="card"><div class="title"><h2>NEAREST AIRCRAFT · 10 MILES</h2><span id="air-updated" class="updated">Connecting...</span></div><div id="aircraft-list" class="message">Scanning local airspace...</div></article>
+</section>
 </main>
-<footer class="brief"><span class="brief-label">LIVE BRIEF</span><span id="brief-text" class="brief-text">Connecting to live services...</span></footer><span class="version">V13.3</span>
-<script>(function () {
-  "use strict";
-
-  var CONFIG = {
-    latitude: 51.6517,
-    longitude: 0.0558,
-    weatherMinutes: 15,
-    tflMinutes: 2,
-    newsMinutes: 10,
-    departuresSeconds: 30,
-    requestTimeoutMs: 15000,
-    maxAttempts: 3,
-    tflLines: ["central", "elizabeth", "district", "jubilee"],
-    bbcFeed: "https://feeds.bbci.co.uk/news/rss.xml?edition=uk"
-  };
-
-  var schedules = {
-    weather: { next: 0, interval: CONFIG.weatherMinutes * 60000, running: false },
-    tfl: { next: 0, interval: CONFIG.tflMinutes * 60000, running: false },
-    news: { next: 0, interval: CONFIG.newsMinutes * 60000, running: false },
-    departures: { next: 0, interval: CONFIG.departuresSeconds * 1000, running: false }
-  };
-  var state = { weather: null, tfl: null, news: null, departures: null };
-
-  function byId(id) { return document.getElementById(id); }
-  function round(value) { return Math.round(Number(value)); }
-  function degree(value) { return round(value) + "\u00B0C"; }
-  function sleep(ms) { return new Promise(function (resolve) { setTimeout(resolve, ms); }); }
-
-  function safeStore(key, value) {
-    try { localStorage.setItem("dd12_" + key, JSON.stringify({ saved: Date.now(), value: value })); } catch (_) {}
-  }
-  function safeLoad(key) {
-    try {
-      var raw = localStorage.getItem("dd12_" + key);
-      return raw ? JSON.parse(raw) : null;
-    } catch (_) { return null; }
-  }
-
-  function fetchJsonOnce(url) {
-    var controller = typeof AbortController !== "undefined" ? new AbortController() : null;
-    var timer = controller ? setTimeout(function () { controller.abort(); }, CONFIG.requestTimeoutMs) : null;
-    return fetch(url, { cache: "no-store", signal: controller ? controller.signal : undefined })
-      .then(function (response) {
-        if (!response.ok) throw new Error("HTTP " + response.status);
-        return response.json();
-      })
-      .finally(function () { if (timer) clearTimeout(timer); });
-  }
-
-  function fetchJsonResilient(url) {
-    var attempt = 0;
-    function run() {
-      attempt += 1;
-      return fetchJsonOnce(url).catch(function (error) {
-        if (attempt >= CONFIG.maxAttempts || !navigator.onLine) throw error;
-        return sleep(Math.pow(2, attempt - 1) * 1500 + Math.floor(Math.random() * 500)).then(run);
-      });
-    }
-    return run();
-  }
-
-  function setStatus(id, kind, text) {
-    var element = byId(id);
-    element.className = "status " + kind;
-    element.innerHTML = "<i></i>" + text;
-  }
-  function timeLabel(timestamp) {
-    return new Date(timestamp || Date.now()).toLocaleTimeString("en-GB", {
-      hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "Europe/London"
-    });
-  }
-  function stamp(id, text) { byId(id).textContent = text || ("Updated " + timeLabel()); }
-  function staleStamp(id, saved) { stamp(id, "Cached " + timeLabel(saved)); }
-
-  function weatherText(code) {
-    var map = {
-      0:["Clear Sky","☀"],1:["Mainly Clear","☀"],2:["Partly Cloudy","⛅"],3:["Overcast","☁"],
-      45:["Fog","≋"],48:["Rime Fog","≋"],51:["Light Drizzle","☂"],53:["Drizzle","☂"],55:["Heavy Drizzle","☂"],
-      56:["Freezing Drizzle","❄"],57:["Freezing Drizzle","❄"],61:["Light Rain","☂"],63:["Rain","☂"],65:["Heavy Rain","☂"],
-      66:["Freezing Rain","❄"],67:["Freezing Rain","❄"],71:["Light Snow","❄"],73:["Snow","❄"],75:["Heavy Snow","❄"],
-      77:["Snow Grains","❄"],80:["Rain Showers","☂"],81:["Rain Showers","☂"],82:["Heavy Showers","☂"],
-      85:["Snow Showers","❄"],86:["Heavy Snow Showers","❄"],95:["Thunderstorm","⚡"],96:["Thunderstorm","⚡"],99:["Severe Thunderstorm","⚡"]
-    };
-    return map[code] || ["Unknown","--"];
-  }
-
-  function renderWeather(data, cached) {
-    state.weather = data;
-    byId("weather-icon").textContent = data.icon;
-    byId("temperature").textContent = degree(data.temperature);
-    byId("weather-description").textContent = data.description;
-    byId("feels-like").textContent = degree(data.feels);
-    byId("humidity").textContent = round(data.humidity) + "%";
-    byId("rain-chance").textContent = (data.rain === null || typeof data.rain === "undefined") ? "--%" : round(data.rain) + "%";
-    if (data.forecast && data.forecast.length) {
-      byId("forecast-strip").innerHTML = data.forecast.slice(0, 4).map(function (day) {
-        return '<div class="forecast-day"><div class="forecast-name">' + escapeHtml(day.day) + '</div>' +
-          '<div class="forecast-icon" aria-hidden="true">' + escapeHtml(day.icon) + '</div>' +
-          '<div class="forecast-temp">' + round(day.high) + '&deg; <span class="low">' + round(day.low) + '&deg;</span></div></div>';
-      }).join("");
-    } else {
-      byId("forecast-strip").innerHTML = '<div class="forecast-loading">Refreshing 4-day forecast...</div>';
-    }
-    cached ? staleStamp("weather-updated", cached) : stamp("weather-updated");
-    setStatus("weather-status", cached ? "warning" : "good", cached ? "Cached" : "Live");
-    updateBrief();
-  }
-
-  function loadWeather() {
-    if (schedules.weather.running) return Promise.resolve();
-    schedules.weather.running = true;
-    var url = "https://api.open-meteo.com/v1/forecast?latitude=" + CONFIG.latitude + "&longitude=" + CONFIG.longitude +
-      "&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code" +
-      "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Europe%2FLondon&forecast_days=5";
-    return fetchJsonResilient(url).then(function (raw) {
-      if (!raw.current || !raw.daily) throw new Error("Invalid weather response");
-      var desc = weatherText(raw.current.weather_code);
-      var forecast = [];
-      for (var i = 1; i < Math.min(5, raw.daily.time.length); i += 1) {
-        var forecastDesc = weatherText(raw.daily.weather_code[i]);
-        var forecastDate = new Date(raw.daily.time[i] + "T12:00:00");
-        forecast.push({
-          day: forecastDate.toLocaleDateString("en-GB", { weekday: "short", timeZone: "Europe/London" }),
-          icon: forecastDesc[1], high: raw.daily.temperature_2m_max[i], low: raw.daily.temperature_2m_min[i]
-        });
-      }
-      var data = { icon:desc[1], description:desc[0], temperature:raw.current.temperature_2m,
-        feels:raw.current.apparent_temperature, humidity:raw.current.relative_humidity_2m,
-        high:raw.daily.temperature_2m_max[0], low:raw.daily.temperature_2m_min[0], rain:raw.daily.precipitation_probability_max[0], forecast:forecast };
-      safeStore("weather", data); renderWeather(data, 0);
-    }).catch(function (error) {
-      var cached = safeLoad("weather");
-      if (cached) renderWeather(cached.value, cached.saved);
-      else { stamp("weather-updated", "Unavailable"); setStatus("weather-status", "bad", "Unavailable"); }
-      console.error("Weather", error);
-    }).finally(function () { schedules.weather.running = false; schedules.weather.next = Date.now() + schedules.weather.interval; });
-  }
-
-  function severityClass(text) {
-    var s = String(text).toLowerCase();
-    if (s.indexOf("good") >= 0) return "good";
-    if (s.indexOf("minor") >= 0 || s.indexOf("part closure") >= 0) return "warning";
-    return "bad";
-  }
-  function renderTfl(lines, cached) {
-    state.tfl = lines;
-    var order={elizabeth:0,central:1,district:2,jubilee:3};
-    lines.sort(function(a,b){return order[a.id]-order[b.id];});
-    byId("tfl-lines").innerHTML=lines.map(function(line){
-      return '<div class="status-row line-row '+line.id+'"><span class="line-name">'+escapeHtml(line.name)+'</span><span class="status '+severityClass(line.status)+'"><i></i>'+escapeHtml(line.status)+'</span></div>';
-    }).join("");
-    cached ? staleStamp("tfl-updated", cached) : stamp("tfl-updated");
-    setStatus("tfl-status", cached ? "warning" : "good", cached ? "Cached" : "Live"); updateBrief();
-  }
-  function loadTfl() {
-    if (schedules.tfl.running) return Promise.resolve();
-    schedules.tfl.running=true;
-    var url="https://api.tfl.gov.uk/Line/"+CONFIG.tflLines.join(",")+"/Status";
-    return fetchJsonResilient(url).then(function(raw){
-      if(!Array.isArray(raw)||!raw.length) throw new Error("Invalid TfL response");
-      var data=raw.map(function(line){return {id:line.id,name:line.name,status:line.lineStatuses&&line.lineStatuses[0]?line.lineStatuses[0].statusSeverityDescription:"Unknown"};});
-      safeStore("tfl",data); renderTfl(data,0);
-    }).catch(function(error){
-      var cached=safeLoad("tfl");
-      if(cached) renderTfl(cached.value,cached.saved); else {stamp("tfl-updated","Unavailable");setStatus("tfl-status","bad","Unavailable");byId("tfl-lines").innerHTML='<div class="error-row">TfL status temporarily unavailable</div>';}
-      console.error("TfL",error);
-    }).finally(function(){schedules.tfl.running=false;schedules.tfl.next=Date.now()+schedules.tfl.interval;});
-  }
-
-  function escapeHtml(text){var div=document.createElement("div");div.textContent=text;return div.innerHTML;}
-  function renderNews(items,cached){
-    state.news=items;byId("headline-list").innerHTML=items.slice(0,3).map(function(item){return "<li>"+escapeHtml(item.title)+"</li>";}).join("");
-    cached?staleStamp("news-updated",cached):stamp("news-updated");setStatus("news-status",cached?"warning":"good",cached?"Cached":"Live");
-  }
-  function loadNews(){
-    if(schedules.news.running)return Promise.resolve();schedules.news.running=true;
-    var url="https://api.rss2json.com/v1/api.json?rss_url="+encodeURIComponent(CONFIG.bbcFeed);
-    return fetchJsonResilient(url).then(function(raw){
-      if(raw.status!=="ok"||!raw.items||!raw.items.length)throw new Error(raw.message||"No headlines");
-      var data=raw.items.slice(0,3).map(function(item){return {title:item.title};});safeStore("news",data);renderNews(data,0);
-    }).catch(function(error){
-      var cached=safeLoad("news");if(cached)renderNews(cached.value,cached.saved);else{stamp("news-updated","Unavailable");setStatus("news-status","bad","Unavailable");byId("headline-list").innerHTML="<li>BBC headlines temporarily unavailable</li>";}console.error("News",error);
-    }).finally(function(){schedules.news.running=false;schedules.news.next=Date.now()+schedules.news.interval;});
-  }
-
-  function renderDepartures(items, cached) {
-    state.departures = items;
-    if (items.length) {
-      byId("departures-list").innerHTML = items.slice(0, 4).map(function (item) {
-        var minutes = Math.max(0, Math.round(item.seconds / 60));
-        var display = minutes < 1 ? "Due" : minutes + " min";
-        return '<div class="departure-row"><span class="departure-destination">' + escapeHtml(item.destination) + '</span><span class="departure-time">' + display + '</span></div>';
-      }).join("");
-      byId("departures-footer").textContent = cached ? "Showing cached prediction data" : "Live TfL predictions";
-    } else {
-      byId("departures-list").innerHTML = '<div class="departure-message">No westbound departures currently shown</div>';
-      byId("departures-footer").textContent = "";
-    }
-    cached ? staleStamp("departures-updated", cached) : stamp("departures-updated");
-  }
-  function loadDepartures() {
-    if (schedules.departures.running) return Promise.resolve();
-    schedules.departures.running = true;
-    return fetchJsonResilient("https://api.tfl.gov.uk/StopPoint/940GZZLULGN/Arrivals").then(function (raw) {
-      if (!Array.isArray(raw)) throw new Error("Invalid departures response");
-      var data = raw.filter(function (train) { return train.direction === "inbound"; })
-        .sort(function (a, b) { return a.timeToStation - b.timeToStation; })
-        .slice(0, 4)
-        .map(function (train) {
-          return { destination: String(train.destinationName || "Destination unknown").replace(" Underground Station", ""), seconds: Number(train.timeToStation || 0) };
-        });
-      safeStore("departures", data); renderDepartures(data, 0);
-    }).catch(function (error) {
-      var cached = safeLoad("departures");
-      if (cached) renderDepartures(cached.value, cached.saved);
-      else { stamp("departures-updated", "Unavailable"); byId("departures-list").innerHTML = '<div class="departure-message bad">TfL predictions unavailable</div>'; }
-      console.error("Departures", error);
-    }).finally(function () { schedules.departures.running = false; schedules.departures.next = Date.now() + schedules.departures.interval; });
-  }
-  function updateBrief(){
-    var parts=[];
-    if(state.weather)parts.push("Weather: "+round(state.weather.temperature)+"\u00B0C, "+state.weather.description.toLowerCase()+", with a "+round(state.weather.rain)+"% chance of rain.");
-    if(state.tfl){var bad=state.tfl.filter(function(x){return x.status.toLowerCase().indexOf("good")<0;});parts.push(bad.length?"Transport: "+bad.map(function(x){return x.name+" "+x.status.toLowerCase();}).join("; ")+".":"Transport: Good service on all monitored lines.");}
-    parts.push(navigator.onLine?"Systems: Internet connection available.":"Systems: Device offline; cached information shown where available.");
-    byId("brief-text").textContent=parts.join(" ");
-  }
-  function updateClock(){var now=new Date();byId("clock").textContent=now.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"Europe/London"});byId("date").textContent=now.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",timeZone:"Europe/London"});}
-  function updateConnectivity(){setStatus("internet-status",navigator.onLine?"good":"bad",navigator.onLine?"Online":"Offline");}
-  function updateCountdown(){
-    var now=Date.now(), candidates=[schedules.weather,schedules.tfl,schedules.news,schedules.departures].filter(function(x){return x.next>now;});
-    var remaining=candidates.length?Math.min.apply(null,candidates.map(function(x){return x.next;}))-now:0;
-    var m=Math.floor(remaining/60000),s=Math.floor((remaining%60000)/1000);byId("refresh-countdown").textContent=(m<10?"0":"")+m+":"+(s<10?"0":"")+s;
-  }
-  function scheduler(){var now=Date.now();Object.keys(schedules).forEach(function(key){if(now>=schedules[key].next&&!schedules[key].running){if(key==="weather")loadWeather();if(key==="tfl")loadTfl();if(key==="news")loadNews();if(key==="departures")loadDepartures();}});}
-  function restoreCache(){["weather","tfl","news","departures"].forEach(function(key){var cached=safeLoad(key);if(!cached)return;if(key==="weather")renderWeather(cached.value,cached.saved);if(key==="tfl")renderTfl(cached.value,cached.saved);if(key==="news")renderNews(cached.value,cached.saved);if(key==="departures")renderDepartures(cached.value,cached.saved);});}
-  function refreshNow(){schedules.weather.next=0;schedules.tfl.next=0;schedules.news.next=0;schedules.departures.next=0;scheduler();}
-
-  window.addEventListener("online",function(){updateConnectivity();refreshNow();});
-  window.addEventListener("offline",function(){updateConnectivity();updateBrief();});
-  document.addEventListener("visibilitychange",function(){if(!document.hidden){updateClock();scheduler();}});
-  window.addEventListener("error",function(e){console.error("Dashboard error",e.error||e.message);});
-
-  var showingDepartures = false;
-  function switchSystemPane() {
-    showingDepartures = !showingDepartures;
-    byId("system-card").classList.toggle("show-departures", showingDepartures);
-  }
-  updateClock();updateConnectivity();restoreCache();refreshNow();updateCountdown();
-  setInterval(updateClock,1000);setInterval(updateCountdown,1000);setInterval(scheduler,5000);setInterval(switchSystemPane,10000);
+<footer class="brief"><span class="brief-label">LIVE BRIEF</span><span id="brief-text">Connecting to live services...</span></footer><span class="version">V12.0</span>
+<script>
+(function(){"use strict";
+var C={airProxy:"",lat:51.6517,lon:0.0558,flip:10,timeout:15000,lines:["central","elizabeth","district","jubilee"],rss:"https://feeds.bbci.co.uk/news/rss.xml?edition=uk",maxNews:8,intervals:{weather:900000,tfl:120000,news:600000,departures:30000,buses:30000,air:30000,radar:300000,ping:30000,speed:1800000}};
+var next={},running={},page=1,flipLeft=C.flip,cachePrefix="loughton_v15_";
+function el(id){return document.getElementById(id)}function esc(s){var d=document.createElement("div");d.textContent=String(s==null?"":s);return d.innerHTML}function deg(v){return Math.round(Number(v))+"°C"}function stamp(id,p){el(id).textContent=(p||"Updated")+" "+new Date().toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit",timeZone:"Europe/London"})}function status(id,k,t){var x=el(id);x.className="status "+k;x.innerHTML="<i></i>"+t}function save(k,v){try{localStorage.setItem(cachePrefix+k,JSON.stringify({at:Date.now(),v:v}))}catch(e){}}function load(k){try{return JSON.parse(localStorage.getItem(cachePrefix+k)||"null")}catch(e){return null}}
+function get(url,ms){var ctl=window.AbortController?new AbortController():null,t=ctl?setTimeout(function(){ctl.abort()},ms||C.timeout):null;return fetch(url,{cache:"no-store",signal:ctl?ctl.signal:undefined}).then(function(r){if(!r.ok)throw Error("HTTP "+r.status);return r.json()}).finally(function(){if(t)clearTimeout(t)})}
+function weatherText(c){return ({0:["Clear sky","☀"],1:["Mainly clear","☀"],2:["Partly cloudy","⛅"],3:["Overcast","☁"],45:["Fog","≋"],48:["Rime fog","≋"],51:["Light drizzle","☂"],53:["Drizzle","☂"],55:["Heavy drizzle","☂"],61:["Light rain","☂"],63:["Rain","☂"],65:["Heavy rain","☂"],71:["Light snow","❄"],73:["Snow","❄"],75:["Heavy snow","❄"],80:["Showers","☂"],81:["Showers","☂"],82:["Heavy showers","☂"],95:["Thunderstorm","⚡"]})[c]||["Unknown","--"]}
+function renderWeather(d,cached){el("temperature").textContent=deg(d.temp);el("weather-description").textContent=d.desc;el("weather-icon").textContent=d.icon;el("feels-like").textContent=deg(d.feels);el("humidity").textContent=Math.round(d.humidity)+"%";el("rain-chance").textContent=Math.round(d.rain||0)+"%";el("forecast").innerHTML=d.forecast.map(function(x){return '<div class="forecast-day"><b>'+esc(x.day)+'</b><span>'+esc(x.icon)+'</span><div>'+Math.round(x.hi)+'° / '+Math.round(x.lo)+'°</div></div>'}).join("");stamp("weather-updated",cached?"Cached":"Updated");status("weather-status",cached?"warning":"good",cached?"Cached":"Live")}
+function weather(){var u="https://api.open-meteo.com/v1/forecast?latitude="+C.lat+"&longitude="+C.lon+"&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Europe%2FLondon&forecast_days=5";return get(u).then(function(r){var w=weatherText(r.current.weather_code),f=[];for(var i=1;i<Math.min(5,r.daily.time.length);i++){var q=weatherText(r.daily.weather_code[i]);f.push({day:new Date(r.daily.time[i]+"T12:00:00").toLocaleDateString("en-GB",{weekday:"short"}),icon:q[1],hi:r.daily.temperature_2m_max[i],lo:r.daily.temperature_2m_min[i]})}var d={temp:r.current.temperature_2m,feels:r.current.apparent_temperature,humidity:r.current.relative_humidity_2m,rain:r.daily.precipitation_probability_max[0],desc:w[0],icon:w[1],forecast:f};save("weather",d);renderWeather(d,false)}).catch(function(){var c=load("weather");if(c)renderWeather(c.v,true);else status("weather-status","bad","Unavailable")})}
+function severity(s){s=String(s).toLowerCase();return s.indexOf("good")>=0?"good":(s.indexOf("minor")>=0||s.indexOf("part closure")>=0?"warning":"bad")}
+function renderTfl(a,cached){var order={elizabeth:0,central:1,district:2,jubilee:3};a.sort(function(x,y){return order[x.id]-order[y.id]});el("tfl-lines").className="";el("tfl-lines").innerHTML=a.map(function(x){return '<div class="status-row line-row '+x.id+'"><span>'+esc(x.name)+'</span><span class="status '+severity(x.s)+'"><i></i>'+esc(x.s)+'</span></div>'}).join("");stamp("tfl-updated",cached?"Cached":"Updated");status("tfl-status",cached?"warning":"good",cached?"Cached":"Live")}
+function tfl(){return get("https://api.tfl.gov.uk/Line/"+C.lines.join(",")+"/Status").then(function(r){var a=r.map(function(x){return{id:x.id,name:x.name,s:x.lineStatuses&&x.lineStatuses[0]?x.lineStatuses[0].statusSeverityDescription:"Unknown"}});save("tfl",a);renderTfl(a,false)}).catch(function(){var c=load("tfl");if(c)renderTfl(c.v,true);else{el("tfl-lines").textContent="TfL status unavailable";status("tfl-status","bad","Unavailable")}})}
+function plain(h){var d=document.createElement("div");d.innerHTML=String(h||"");return (d.textContent||"").replace(/\s+/g," ").trim()}
+function renderNews(a,cached){el("headline-list").innerHTML=a.slice(0,C.maxNews).map(function(x){return '<li><span class="hl">'+esc(x.title)+'</span>'+(x.summary?'<span class="summary">'+esc(x.summary)+'</span>':'')+'</li>'}).join("");stamp("news-updated",cached?"Cached":"Updated");status("news-status",cached?"warning":"good",cached?"Cached":"Live")}
+function news(){return get("https://api.rss2json.com/v1/api.json?rss_url="+encodeURIComponent(C.rss)).then(function(r){if(r.status!=="ok")throw Error("feed");var a=r.items.slice(0,C.maxNews).map(function(x){return{title:x.title,summary:plain(x.description)}});save("news",a);renderNews(a,false)}).catch(function(){var c=load("news");if(c)renderNews(c.v,true);else{el("headline-list").innerHTML="<li>BBC headlines unavailable</li>";status("news-status","bad","Unavailable")}})}
+function renderRows(id,a,empty){el(id).className="";el(id).innerHTML=a.length?a.map(function(x){return '<div class="data-row"><div><div class="data-main">'+esc(x.main)+'</div><div class="data-sub">'+esc(x.sub||"")+'</div></div><div class="data-time">'+esc(x.time)+'</div></div>'}).join(""):'<div class="message">'+empty+'</div>'}
+function departures(){return get("https://api.tfl.gov.uk/StopPoint/940GZZLULGN/Arrivals").then(function(r){var a=r.filter(function(x){return x.direction==="inbound"}).sort(function(a,b){return a.timeToStation-b.timeToStation}).slice(0,5).map(function(x){var m=Math.max(0,Math.round(x.timeToStation/60));return{main:String(x.destinationName||"Unknown").replace(" Underground Station",""),sub:x.platformName||"Westbound",time:m<1?"Due":m+" min"}});save("departures",a);renderRows("departures-list",a,"No westbound departures shown");stamp("departures-updated")}).catch(function(){var c=load("departures");if(c){renderRows("departures-list",c.v,"No departures");stamp("departures-updated","Cached")}else el("departures-list").innerHTML='<div class="message bad">Predictions unavailable</div>'})}
+var crownKnown=["1500LOUGHTON","1500IM504","150042010004"];
+function near(x){return x.lat!=null&&x.lon!=null&&miles(C.lat,C.lon,x.lat,x.lon)<=3}
+function discoverCrown(){return get("https://api.tfl.gov.uk/StopPoint?lat="+C.lat+"&lon="+C.lon+"&stopTypes=NaptanPublicBusCoachTram&radius=2500&modes=bus").then(function(r){return (r.stopPoints||[]).filter(function(x){return /crown/i.test(x.commonName||"")}).map(function(x){return x.id})}).catch(function(){return[]}).then(function(ids){if(ids.length)return ids;return get("https://api.tfl.gov.uk/StopPoint/Search?query=Crown&modes=bus&maxResults=40").then(function(r){return (r.matches||[]).filter(function(x){return /crown/i.test(x.name||"")&&near(x)}).map(function(x){return x.id})}).catch(function(){return[]})})}
+function arrivalsFor(ids){return Promise.all(ids.map(function(id){return get("https://api.tfl.gov.uk/StopPoint/"+encodeURIComponent(id)+"/Arrivals").catch(function(){return null})}))}
+function buses(){return arrivalsFor(crownKnown).then(function(g){if(g.some(Boolean))return g;return discoverCrown().then(function(ids){if(!ids.length)throw Error("no stops");return arrivalsFor(ids.slice(0,4))})}).then(function(groups){if(!groups.some(Boolean))throw Error("no data");var r=[].concat.apply([],groups.filter(Boolean)),seen={};var a=r.sort(function(a,b){return a.timeToStation-b.timeToStation}).filter(function(x){var k=x.id||(x.vehicleId+"|"+x.lineId+"|"+x.stationName);if(seen[k])return false;seen[k]=1;return true}).slice(0,6).map(function(x){var m=Math.max(0,Math.round(x.timeToStation/60));return{main:(x.lineName||x.lineId||"Bus")+" to "+(x.destinationName||"Unknown"),sub:"The Crown"+(x.towards?" · towards "+x.towards:""),time:m<1?"Due":m+" min"}});save("buses",a);renderRows("buses-list",a,"No imminent buses shown");stamp("buses-updated")}).catch(function(){var c=load("buses");if(c){renderRows("buses-list",c.v,"No buses");stamp("buses-updated","Cached")}else el("buses-list").innerHTML='<div class="message bad">Bus predictions unavailable</div>'})}
+function miles(a,b,c,d){var R=3958.8,p=Math.PI/180,da=(c-a)*p,dl=(d-b)*p,q=Math.sin(da/2)*Math.sin(da/2)+Math.cos(a*p)*Math.cos(c*p)*Math.sin(dl/2)*Math.sin(dl/2);return 2*R*Math.atan2(Math.sqrt(q),Math.sqrt(1-q))}
+var AL={EZY:"easyJet",EJU:"easyJet",EZS:"easyJet",BAW:"British Airways",SHT:"BA Shuttle",CFE:"BA CityFlyer",RYR:"Ryanair",RUK:"Ryanair UK",VIR:"Virgin Atlantic",TOM:"TUI Airways",TFL:"TUI fly",EXS:"Jet2",AFR:"Air France",KLM:"KLM",DLH:"Lufthansa",SWR:"Swiss",AUA:"Austrian",IBE:"Iberia",VLG:"Vueling",TAP:"TAP Portugal",EIN:"Aer Lingus",UAE:"Emirates",QTR:"Qatar Airways",ETD:"Etihad",THY:"Turkish Airlines",AAL:"American",DAL:"Delta",UAL:"United",ACA:"Air Canada",SAS:"SAS",FIN:"Finnair",NAX:"Norwegian",WZZ:"Wizz Air",WUK:"Wizz Air UK",MEA:"Middle East Airlines",SIA:"Singapore Airlines",CPA:"Cathay Pacific",ELY:"El Al",LOT:"LOT Polish",BCS:"DHL",UPS:"UPS",FDX:"FedEx",GEC:"Lufthansa Cargo",CLX:"Cargolux",RAM:"Royal Air Maroc",MSR:"EgyptAir",SVA:"Saudia"};
+function airline(c){return AL[String(c||"").slice(0,3)]||""}
+var RT=(function(){var c=load("routes");return c&&c.v?c.v:{}}()),RP={};
+function route(call){if(!call||!/^[A-Z]{3}[0-9]/.test(call))return Promise.resolve(null);var e=RT[call];if(e&&Date.now()-e.t<(e.v?21600000:1200000))return Promise.resolve(e.v);if(RP[call])return RP[call];
+ RP[call]=get("https://api.adsbdb.com/v0/callsign/"+encodeURIComponent(call),8000).then(function(r){var f=r.response&&r.response.flightroute,d=f&&f.destination;return f?{al:(f.airline&&f.airline.name)||"",dest:d?(d.municipality||d.name||""):"",di:d&&d.iata_code||""}:null},function(e){return /404/.test(e&&e.message)?null:undefined}).then(function(v){delete RP[call];if(v!==undefined){RT[call]={t:Date.now(),v:v};if(Object.keys(RT).length>150)RT={};save("routes",RT)}return v||null});return RP[call]}
+function routeText(x){var r=x.rt,al=(r&&r.al)||airline(x.call),d=r&&r.dest?r.dest+(r.di?" ("+r.di+")":""):"",t=al+(al&&d?" → ":(d?"→ ":""))+d;return t?'<span class="ac-route">'+esc(t)+"</span>":""}
+function renderAir(a,cached,info){var inf=info?'<div class="data-sub" style="padding-top:5px">'+esc(info.src)+' · '+info.feed+' in feed · '+info.within+' within 10 mi</div>':'';
+ if(!a.length)el("aircraft-list").innerHTML='<div class="message">No aircraft currently detected within 10 miles</div>'+inf;else el("aircraft-list").innerHTML=a.map(function(x){return '<div class="data-row"><div><div class="aircraft-call">'+esc(x.call||x.icao)+routeText(x)+'</div><div class="aircraft-grid"><span>Distance <strong>'+x.dist.toFixed(1)+' mi</strong></span><span>Altitude <strong>'+(x.alt==null?'Ground':Math.round(x.alt).toLocaleString('en-GB')+' ft')+'</strong></span><span>Speed <strong>'+Math.round(x.speed)+' kt</strong></span><span>Heading <strong>'+Math.round(x.heading)+'°</strong></span></div></div></div>'}).join("")+inf;stamp("air-updated",cached?"Cached":"Updated");status("air-status",cached?"warning":"good",cached?"Cached":"Live")}
+function airNorm(t,r){
+ if(t==="os"){return (r.states||[]).map(function(a){var g=a[8]===true,m=a[7]!=null?a[7]:a[13];return{icao:a[0],call:(a[1]||"").trim(),lon:a[5],lat:a[6],alt:g||m==null?null:m*3.28084,speed:(a[9]||0)*1.94384,heading:a[10]||0}})}
+ var l=r.ac||r.aircraft;if(!Array.isArray(l))throw Error("bad format");
+ return l.map(function(s){var g=s.alt_baro==="ground",f=typeof s.alt_baro==="number"?s.alt_baro:(typeof s.alt_geom==="number"?s.alt_geom:null);return{icao:s.hex,call:(s.flight||"").trim(),lat:s.lat,lon:s.lon,alt:g?null:f,speed:s.gs||0,heading:s.track||0}})}
+function px(u){return"https://corsproxy.io/?url="+encodeURIComponent(u)}
+function px2(u){return"https://api.allorigins.win/raw?url="+encodeURIComponent(u)}
+function airList(){var lat=C.lat,lon=C.lon,d=0.15,L=[],
+ lol="https://api.adsb.lol/v2/point/"+lat+"/"+lon+"/10",
+ fi="https://opendata.adsb.fi/api/v3/lat/"+lat+"/lon/"+lon+"/dist/10",
+ os="https://opensky-network.org/api/states/all?lamin="+(lat-d)+"&lomin="+(lon-d*1.6)+"&lamax="+(lat+d)+"&lomax="+(lon+d*1.6);
+ if(C.airProxy){L.push({n:"my proxy/lol",u:C.airProxy+"?u="+encodeURIComponent(lol),t:"a"});L.push({n:"my proxy/fi",u:C.airProxy+"?u="+encodeURIComponent(fi),t:"a"})}
+ L.push({n:"allorigins/lol",u:px2(lol),t:"a"},{n:"allorigins/fi",u:px2(fi),t:"a"},{n:"codetabs/lol",u:"https://api.codetabs.com/v1/proxy?quest="+encodeURIComponent(lol),t:"a"},{n:"allorigins/opensky",u:px2(os),t:"os"});return L}
+var airGood=-1;
+function airFetch(order,k,log){if(k>=order.length)return Promise.reject(Error("no air source"));var src=airList()[order[k]];return get(src.u,9000).then(function(r){var a=airNorm(src.t,r);airGood=order[k];return{list:a,src:src.n}}).catch(function(e){log.push(src.n+": "+(e&&e.name==="AbortError"?"timeout":(e&&e.message)||"error"));return airFetch(order,k+1,log)})}
+function aircraft(){var n=airList().length,order=[],log=[],i;if(airGood>=0)order.push(airGood);for(i=0;i<n;i++)if(i!==airGood)order.push(i);
+ return airFetch(order,0,log).then(function(r){var all=r.list.filter(function(x){return x.lat!=null&&x.lon!=null}).map(function(x){x.dist=miles(C.lat,C.lon,x.lat,x.lon);return x}).filter(function(x){return x.dist<=10}).sort(function(a,b){return a.dist-b.dist}),a=all.slice(0,4),info={src:r.src,feed:r.list.length,within:all.length};save("air2",{a:a,info:info});a.forEach(function(x){var e=RT[x.call];x.rt=e&&e.v||null});renderAir(a,false,info);Promise.all(a.map(function(x){return route(x.call).then(function(r){x.rt=r})})).then(function(){save("air2",{a:a,info:info});renderAir(a,false,info)}).catch(function(){})}).catch(function(){var c=load("air2");if(c)renderAir(c.v.a,true,c.v.info);else{el("aircraft-list").innerHTML='<div class="message bad">Aircraft feed unavailable</div><div class="data-sub">'+log.map(esc).join("<br>")+'</div>';status("air-status","bad","Unavailable")}})}
+var RD=null;
+function loadImg(u){return new Promise(function(res){var i=new Image();i.onload=function(){res(i)};i.onerror=function(){res(null)};i.src=u})}
+function drawRadar(){if(!RD)return;var cv=el("radar-canvas"),box=el("radar-box"),w=box.clientWidth,h=box.clientHeight;if(!w||!h)return;
+ var d=Math.min(window.devicePixelRatio||1,2),W=65536,lr=C.lat*Math.PI/180,cx=(C.lon+180)/360*W,cy=(1-Math.log(Math.tan(lr)+1/Math.cos(lr))/Math.PI)/2*W,mpu=40075016.7*Math.cos(lr)/W,r50=50*1609.34/mpu,s=(Math.min(w,h)/2*0.94)/r50,hx=w/2/s,hy=h/2/s,seq=++RD.seq,jobs=[],tx,ty,wx;
+ for(tx=Math.floor((cx-hx)/256);tx<=Math.floor((cx+hx)/256);tx++)for(ty=Math.floor((cy-hy)/256);ty<=Math.floor((cy+hy)/256);ty++){if(ty<0||ty>255)continue;wx=((tx%256)+256)%256;jobs.push({k:"b",x:tx,y:ty,p:loadImg("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/8/"+ty+"/"+wx)})}
+ for(tx=Math.floor((cx-hx)/512);tx<=Math.floor((cx+hx)/512);tx++)for(ty=Math.floor((cy-hy)/512);ty<=Math.floor((cy+hy)/512);ty++){if(ty<0||ty>127)continue;wx=((tx%128)+128)%128;jobs.push({k:"r",x:tx,y:ty,p:loadImg(RD.host+RD.path+"/512/7/"+wx+"/"+ty+"/2/1_1.png")})}
+ return Promise.all(jobs.map(function(j){return j.p})).then(function(imgs){if(seq!==RD.seq)return;
+  cv.width=Math.round(w*d);cv.height=Math.round(h*d);var c=cv.getContext("2d"),rain=0,i,j,z;c.setTransform(d,0,0,d,0,0);c.fillStyle="#0b1015";c.fillRect(0,0,w,h);
+  c.save();c.translate(w/2,h/2);c.scale(s,s);c.translate(-cx,-cy);
+  for(i=0;i<jobs.length;i++){j=jobs[i];if(j.k==="b"&&imgs[i])c.drawImage(imgs[i],j.x*256,j.y*256,256.6,256.6)}
+  c.globalAlpha=0.55;for(i=0;i<jobs.length;i++){j=jobs[i];if(j.k==="r"&&imgs[i]){rain++;c.drawImage(imgs[i],j.x*512,j.y*512,512.6,512.6)}}
+  c.restore();c.globalAlpha=1;c.lineWidth=1.5;c.setLineDash([5,4]);c.font="11px Arial,sans-serif";
+  [25,50].forEach(function(m){z=m*1609.34/mpu*s;c.strokeStyle="rgba(245,248,250,.55)";c.beginPath();c.arc(w/2,h/2,z,0,Math.PI*2);c.stroke();c.fillStyle="#f5f8fa";c.fillText(m+" mi",w/2+5,h/2-z+13)});
+  c.setLineDash([]);c.fillStyle="#35bdf5";c.strokeStyle="#f5f8fa";c.lineWidth=2;c.beginPath();c.arc(w/2,h/2,5,0,Math.PI*2);c.fill();c.stroke();
+  c.font="9px Arial,sans-serif";c.fillStyle="rgba(174,185,194,.8)";c.textAlign="right";c.fillText("Map © Esri, HERE, Garmin, OpenStreetMap contributors · Radar: RainViewer",w-6,h-5);c.textAlign="left";
+  if(!rain){c.fillStyle="#ffb33d";c.font="13px Arial,sans-serif";c.fillText("Radar tiles unavailable",10,h-10)}})}
+function radar(){return get("https://api.rainviewer.com/public/weather-maps.json").then(function(r){var p=r.radar&&r.radar.past;if(!p||!p.length)throw Error("no frames");var f=p[p.length-1];RD={host:r.host,path:f.path,seq:RD?RD.seq:0};el("radar-updated").textContent="Radar "+new Date(f.time*1000).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit",timeZone:"Europe/London"});return drawRadar()}).catch(function(){el("radar-updated").textContent="Unavailable"})}
+window.addEventListener("resize",function(){drawRadar()});
+function timed(url,opts,ms){var ctl=window.AbortController?new AbortController():null,to=ctl?setTimeout(function(){ctl.abort()},ms):null;opts.signal=ctl?ctl.signal:undefined;opts.cache="no-store";return fetch(url,opts).finally(function(){if(to)clearTimeout(to)})}
+function pingOnce(){var t0=performance.now();return timed("https://www.google.com/generate_204?_="+Date.now(),{mode:"no-cors"},5000).then(function(){return performance.now()-t0})}
+function ping(){var r=[];function one(n){return pingOnce().then(function(ms){r.push(ms)},function(){}).then(function(){return n>1?one(n-1):null})}
+ return one(3).then(function(){if(!r.length){status("ping-status","bad","No reply");return}var m=Math.round(Math.min.apply(null,r));status("ping-status",m<100?"good":(m<250?"warning":"bad"),m+" ms")})}
+function mbps(v){return (v<10?v.toFixed(1):Math.round(v))+" Mbps"}
+function speed(){var t0,B=2000000;status("speed-status","pending","Testing...");t0=performance.now();
+ return timed("https://speed.cloudflare.com/__down?bytes="+B+"&_="+Date.now(),{},20000).then(function(r){if(!r.ok)throw Error("HTTP "+r.status);return r.arrayBuffer()}).then(function(b){var v=b.byteLength*8/((performance.now()-t0)/1000)/1e6;save("speed",v);status("speed-status",v>=10?"good":(v>=2?"warning":"bad"),mbps(v))}).catch(function(){var c=load("speed");if(c)status("speed-status","warning",mbps(c.v)+" (last)");else status("speed-status","bad","Unavailable")})}
+var jobs={weather:weather,tfl:tfl,news:news,departures:departures,buses:buses,air:aircraft,radar:radar,ping:ping,speed:speed};function schedule(){var now=Date.now();Object.keys(jobs).forEach(function(k){if(!running[k]&&(!next[k]||now>=next[k])){running[k]=true;Promise.resolve(jobs[k]()).finally(function(){running[k]=false;next[k]=Date.now()+C.intervals[k]})}})}
+function clock(){var n=new Date();el("clock").textContent=n.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"Europe/London"});el("date").textContent=n.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",timeZone:"Europe/London"})}function connectivity(){status("internet-status",navigator.onLine?"good":"bad",navigator.onLine?"Online":"Offline")}function flip(){page=page===1?2:1;el("page1").classList.toggle("active",page===1);el("page2").classList.toggle("active",page===2);el("page-label").textContent=page===1?"PAGE 1 · NEWS & RADAR":"PAGE 2 · TRAVEL & AIRSPACE";flipLeft=C.flip}function tick(){flipLeft--;if(flipLeft<=0)flip();el("flip-timer").textContent=flipLeft}function brief(){el("brief-text").textContent=page===1?"News, rain radar, local weather and system health.":"Live Tube, rail, bus and nearby aircraft information."}
+window.addEventListener("online",function(){connectivity();Object.keys(next).forEach(function(k){next[k]=0})});window.addEventListener("offline",connectivity);clock();connectivity();schedule();brief();setInterval(clock,1000);setInterval(function(){tick();brief()},1000);setInterval(schedule,3000);
 }());
 </script>
 </body></html>
