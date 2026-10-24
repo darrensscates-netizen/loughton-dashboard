@@ -3,13 +3,13 @@ LOUGHTON OPERATIONS DASHBOARD
 
 A single-file, wall-mounted information dashboard designed for an Amazon Fire
 tablet (landscape). It rotates between two pages every 10 seconds and shows
-live news, rain radar, weather, system/network health, Tube status, train and
+live headlines, rain radar, weather, system/network health, Tube status, train and
 bus departures and nearby aircraft.
 
 There is no server, no build step, no framework and no API keys. The whole
 dashboard is one file: index.html. Open it in a browser and it runs.
 
-Current version: V16 (see the small version label at the bottom-right of the
+Current version: V19 (see the small version label at the bottom-right of the
 screen, the <title>, and the "dashboard-version" meta tag in the file).
 
 
@@ -18,7 +18,8 @@ screen, the <title>, and the "dashboard-version" meta tag in the file).
 -------------------------------------------------------------------------------
 
 Page 1 (news, radar, health, weather)
-  - BBC NEWS         Top headlines from the BBC UK news feed.
+  - NEWS HEADLINES   The latest UK headlines from BBC, Guardian, Sky News,
+                     Independent and ITV News, each tagged with its source.
   - RAIN RADAR       Live rainfall radar over a dark map, centred on your
                      location, with 25 and 50 mile range rings.
   - SYSTEM STATUS    Ping time to Google, download speed, and a live/cached/
@@ -37,6 +38,9 @@ Page 2 (travel and airspace)
 The header shows the clock, date and a countdown to the next page flip. The
 footer shows a one-line description of the current page.
 
+Each pane header shows "Last updated: HH:MM" for its data (and "(cached)" if
+it is showing saved data because the service could not be reached).
+
 Every feed keeps its last good result in the browser's local storage. If a
 service is unreachable the panel shows the cached data marked "Cached" rather
 than going blank.
@@ -47,7 +51,9 @@ than going blank.
 -------------------------------------------------------------------------------
 
   Weather        Open-Meteo               api.open-meteo.com
-  News           BBC RSS via rss2json     api.rss2json.com
+  Headlines      GDELT news index         api.gdeltproject.org
+                 (backup: Wikipedia       en.wikipedia.org
+                 "In the news")
   Tube / buses   Transport for London     api.tfl.gov.uk
   Rain radar     RainViewer               api.rainviewer.com, tilecache.rainviewer.com
   Map            Esri World Dark Gray     server.arcgisonline.com
@@ -184,10 +190,22 @@ item below.
     in the header, and the "LOUGHTON WESTBOUND" and "THE CROWN . NEXT BUSES"
     panel titles.
 
-5.5 News  (search for:  rss: )
-    The BBC UK feed is set in C.rss. For another BBC feed, such as World or
-    Business, swap the address. Any standard RSS feed works. C.maxNews sets
-    how many headlines are fetched.
+5.5 Headlines  (search for:  newsQuery )
+    Headlines come from the GDELT news index, which needs no key. The setting
+    newsQuery chooses which news sites to include, using "domainis:" filters
+    joined with OR, for example
+        (domainis:bbc.co.uk OR domainis:theguardian.com) sourcelang:english
+    Add or remove sites to taste, and add a label for each new site in the
+    NSRC list (search for:  var NSRC= ) so it shows a friendly name. For
+    another country, use the news sites of that country and change
+    sourcelang. C.maxNews sets how many headlines are shown.
+    Results are the newest items from the last 12 hours, de-duplicated.
+    GDELT is asked once every 10 minutes (it asks for no more than one request
+    every 5 seconds). It is loaded as a script rather than a normal request,
+    which avoids the browser restriction that blocks most news feeds.
+    If GDELT cannot be reached, the panel falls back to Wikipedia's "In the
+    news" list, tagged "Wikipedia". If both fail and there is no saved copy,
+    the panel shows the reasons.
 
 5.6 London Underground lines  (search for:  lines: )
     C.lines lists the lines in the TUBE STATUS panel, using TfL line ids, e.g.
@@ -285,6 +303,9 @@ item below.
     browser's developer console (F12 on a computer) will show which service
     stopped working.
   - Rain radar: the free service limits zoom, so the radar is slightly soft.
+  - Headlines come from GDELT, a free public service with no guarantees. It
+    occasionally runs slowly or returns nothing, in which case the panel shows
+    the previous headlines marked as cached (or the Wikipedia backup).
 
 
 -------------------------------------------------------------------------------
@@ -302,8 +323,12 @@ from failed feeds appear in red in the Console.
 
   - Weather data: Open-Meteo.com (CC BY 4.0)
   - Transport data: Powered by TfL Open Data
-  - News: BBC News RSS (for personal, non-commercial use)
+  - Headlines: GDELT Project (gdeltproject.org); headline text belongs to
+    the respective publishers. Backup: Wikipedia "In the news" (CC BY-SA)
   - Radar: RainViewer
   - Map: Esri, HERE, Garmin, OpenStreetMap contributors
   - Aircraft data: adsb.lol, adsb.fi, OpenSky Network
   - Flight route data: adsbdb.com
+
+Add your own LICENSE file to the repository to say how others may reuse the
+code.
