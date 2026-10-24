@@ -9,7 +9,7 @@ bus departures and nearby aircraft.
 There is no server, no build step, no framework and no API keys. The whole
 dashboard is one file: index.html. Open it in a browser and it runs.
 
-Current version: V19 (see the small version label at the bottom-right of the
+Current version: V24 (see the small version label at the bottom-right of the
 screen, the <title>, and the "dashboard-version" meta tag in the file).
 
 
@@ -41,9 +41,10 @@ footer shows a one-line description of the current page.
 Each pane header shows "Last updated: HH:MM" for its data (and "(cached)" if
 it is showing saved data because the service could not be reached).
 
-Every feed keeps its last good result in the browser's local storage. If a
-service is unreachable the panel shows the cached data marked "Cached" rather
-than going blank.
+Every feed keeps its last good result. If a service is unreachable, the panel
+keeps showing that result marked "(cached)", but ONLY if it is less than one
+hour old (setting cacheMs). After that the panel is cleared and shows
+"unavailable", so out-of-date information is never presented as current.
 
 
 -------------------------------------------------------------------------------
@@ -52,13 +53,12 @@ than going blank.
 
   Weather        Open-Meteo               api.open-meteo.com
   Headlines      GDELT news index         api.gdeltproject.org
-                 (backup: Wikipedia       en.wikipedia.org
-                 "In the news")
   Tube / buses   Transport for London     api.tfl.gov.uk
   Rain radar     RainViewer               api.rainviewer.com, tilecache.rainviewer.com
   Map            Esri World Dark Gray     server.arcgisonline.com
-  Aircraft       adsb.lol / adsb.fi /     fetched through free public relays
-                 OpenSky                  (api.allorigins.win, api.codetabs.com)
+  Aircraft       OpenSky Network          opensky-network.org (direct)
+                 backups: adsb.lol,       via free public relays
+                 adsb.fi                  (api.allorigins.win, api.codetabs.com)
   Flight routes  adsbdb                   api.adsbdb.com
   Ping test      Google                   www.google.com
   Speed test     Cloudflare               speed.cloudflare.com
@@ -200,12 +200,14 @@ item below.
     another country, use the news sites of that country and change
     sourcelang. C.maxNews sets how many headlines are shown.
     Results are the newest items from the last 12 hours, de-duplicated.
-    GDELT is asked once every 10 minutes (it asks for no more than one request
-    every 5 seconds). It is loaded as a script rather than a normal request,
+    GDELT is asked once every 15 minutes, and again after one minute if a
+    check fails. GDELT can throttle busy networks and says it wants no more
+    than one request every 5 seconds. It is loaded as a script rather than a normal request,
     which avoids the browser restriction that blocks most news feeds.
-    If GDELT cannot be reached, the panel falls back to Wikipedia's "In the
-    news" list, tagged "Wikipedia". If both fail and there is no saved copy,
-    the panel shows the reasons.
+    If GDELT cannot be reached, the panel keeps showing the last headlines
+    marked "(cached)", but only if they are less than one hour old (setting
+    cacheMs, in milliseconds, which applies to every pane). Older headlines
+    are not shown; the panel shows the reason instead.
 
 5.6 London Underground lines  (search for:  lines: )
     C.lines lists the lines in the TUBE STATUS panel, using TfL line ids, e.g.
@@ -258,13 +260,22 @@ item below.
        Add your local airlines there.
      - Titles: "NEAREST AIRCRAFT . 10 MILES" and the "within 10 miles"
        message.
-     Note: aircraft data only works through free public relays (see
-     Limitations). C.airProxy is an optional setting for your own relay.
+     - Source: OpenSky is used first. A free anonymous OpenSky account
+       allows only about 400 requests a day, so it is asked once every 4
+       minutes (setting openskyGapMs). Between requests the dashboard moves
+       each aircraft along its heading and speed so the list stays current;
+       the grey line under the list says how old the data is. If OpenSky is
+       unavailable, the free relays are used instead for a few minutes.
+     - C.airProxy is an optional setting for your own relay (not needed).
 
 5.12 Timings  (search for:  flip:  and  intervals: )
+     C.retryMs (default 60000) is how soon a failed headlines check is
+     retried.
+     C.cacheMs is how long (in milliseconds) saved data may be shown when a
+     service is down (default 3600000 = one hour).
      C.flip is seconds per page. C.intervals sets how often each feed
      refreshes, in milliseconds:
-         weather 900000 (15 min)  tfl 120000 (2 min)   news 600000 (10 min)
+         weather 900000 (15 min)  tfl 120000 (2 min)   news 900000 (15 min)
          departures 30000         buses 30000          air 30000
          radar 300000 (5 min)     ping 30000           speed 1800000 (30 min)
 
@@ -288,11 +299,13 @@ item below.
 6. LIMITATIONS
 -------------------------------------------------------------------------------
 
-  - Aircraft: the main aircraft services do not allow web pages to read their
-    data directly, so the dashboard goes through free public relays. These can
-    be slow or intermittently unavailable, in which case the panel briefly
-    shows the last good list marked "Cached". A small status line under the
-    list shows which source was used and how many aircraft were found.
+  - Aircraft: OpenSky is free but limited (about 400 requests a day), so the
+    list is refreshed every 4 minutes and aircraft positions between refreshes
+    are estimates. Reloading the page many times can use up the daily allowance;
+    the dashboard then falls back to free public relays, which can be slow or
+    unavailable, in which case the panel shows the last list marked "Cached"
+    (for up to an hour). A small line under the list shows which source was
+    used, how old the data is, and how many aircraft were found.
   - Destinations and airlines: depend on a community database. Private,
     military and some other flights will show no destination.
   - Ping and speed: measured by a web page, so they are indicative only and
@@ -305,7 +318,7 @@ item below.
   - Rain radar: the free service limits zoom, so the radar is slightly soft.
   - Headlines come from GDELT, a free public service with no guarantees. It
     occasionally runs slowly or returns nothing, in which case the panel shows
-    the previous headlines marked as cached (or the Wikipedia backup).
+    headlines from the last hour marked as cached, or an error if none.
 
 
 -------------------------------------------------------------------------------
@@ -324,7 +337,7 @@ from failed feeds appear in red in the Console.
   - Weather data: Open-Meteo.com (CC BY 4.0)
   - Transport data: Powered by TfL Open Data
   - Headlines: GDELT Project (gdeltproject.org); headline text belongs to
-    the respective publishers. Backup: Wikipedia "In the news" (CC BY-SA)
+    the respective publishers.
   - Radar: RainViewer
   - Map: Esri, HERE, Garmin, OpenStreetMap contributors
   - Aircraft data: adsb.lol, adsb.fi, OpenSky Network
